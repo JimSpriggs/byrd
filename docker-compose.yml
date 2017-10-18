@@ -1,0 +1,14 @@
+version: '2'
+services:
+  nzbget:
+    image: linuxserver/nzbget
+    container_name: nzbget
+    volumes:
+      - /media/nzbget:/config
+      - /media/downloads:/downloads
+    ports:
+      - 6789:6789
+    restart: always
+    environment:
+      - PUID=1000
+      - PGID=1000

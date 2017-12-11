@@ -12,3 +12,49 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
+  sonarr:
+    image: linuxserver/sonarr
+    container_name: sonarr
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /media/sonarr:/config
+      - /media/medlar_tv:/tv
+      - /media/downloads:/downloads
+    ports:
+      - 8989:8989
+    restart: always
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+  radarr:
+    image: linuxserver/radarr
+    container_name: radarr
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /media/radarr:/config
+      - /media/medlar_movies:/movies
+      - /media/downloads:/downloads
+    ports:
+      - 7878:7878
+    restart: always
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+  transmission:
+    image: linuxserver/transmission
+    container_name: transmission
+    volumes:
+      - /media/sonarr:/config
+      - /media/watch:/watch
+      - /media/downloads:/downloads
+    ports:
+      - 9091:9091
+      - 51413:51413
+      - 51413:51413/udp
+    restart: always
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
